@@ -1,28 +1,59 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="row">
+    <div class="nav flex-column nav-pills col-lg-2 col-12" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <router-link id="v-pills-settings-tab" data-toggle="pill" class="nav-link active" to="/" role="tab" aria-controls="v-pills-settings" aria-selected="false">Home</router-link>
+      <router-link id="v-pills-settings-tab" data-toggle="pill" class="nav-link" to="/about" role="tab" aria-controls="v-pills-settings" aria-selected="false">About</router-link>
+    </div>
+    <div class="col-lg-10 col-12">
+      <router-view />
+    </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
   }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+
+body, html {
+  margin: 0;
+  height: 100%;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    width: 80%;
+}
+
+body {
+  background-color: #EEEEEE;
+  font-family: 'Montserrat', sans-serif;
+  display: grid;
+  grid-template-rows: auto;
+  justify-items: center;
+  padding-top: 50px;
+}
+
+nav {
+  padding: 20px 20px 20px 0;
+}
+
+nav a {
+  padding: 10px;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 3px;
+  color: rgb(0, 110, 255);
+  font-weight: bold;
+  margin-right: 15px;
 }
 </style>
