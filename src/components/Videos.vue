@@ -1,10 +1,12 @@
 <template>
-<div class="row padding-container">
-  <div class="content-div col-12 col-lg-5 mt-md-0 mt-lg-0" v-bind:class="getClass(index)" v-for="(videoLink,index) in videosLinks" :key="index">
-    <iframe width="100%" height="100%" :src="videoLink" frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-  </div>
+ <transition name="videos" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+  <div class="row padding-container">
+    <div class="content-div col-12 col-lg-5 mt-md-0 mt-lg-0" v-bind:class="getClass(index)" v-for="(videoLink,index) in videosLinks" :key="index" v-scroll-reveal.reset>
+      <iframe width="100%" height="100%" :src="videoLink" frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    </div>
+   </transition>
 
 
 </template>
@@ -17,8 +19,6 @@ export default {
   data () {
     return {
       videosLinks: [],
-      asd: null,
-      isActive: true
     }
   },
    mounted () {
