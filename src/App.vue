@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-         <transition name="alert-in" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
-        <div v-if="actualPage === 'Home'" id="main-page-header-home" class="text-center"><h1>Home</h1></div>
+       <div class="text-right position-fixed pos" ><a href=""><i class="fab fa-facebook-messenger fb-icon"></i></a></div>
+    <div class="mb-3">
+         <transition name="alert-in" enter-active-class="animated rollIn" leave-active-class="animated bounceOutRight">
+        <div v-if="actualPage === 'Home'" id="main-page-header-home" class="text-center"><h1 class="header-text">Videos</h1></div>
           </transition>
-          <transition name="alert-in" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
-        <div v-if="actualPage === 'About'" id="main-page-header-about" class="text-center"><h1>About</h1></div>
+          <transition name="alert-in" enter-active-class="animated rollIn" leave-active-class="animated bounceOutRight">
+        <div v-if="actualPage === 'About'" id="main-page-header-about" class="text-center"><h1 class="header-text">About</h1></div>
           </transition>
-
+    </div>
     <div class="row">
     <div class="nav flex-column nav-pills col-lg-2 col-12" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       <router-link  id="v-pills-settings-tab" data-toggle="pill" class="nav-link active" to="/" role="tab" aria-controls="v-pills-settings" aria-selected="false" v-on:click.native="setHome()">Home</router-link>
@@ -16,6 +18,7 @@
       <router-view />
     </div>
     </div>
+
   </div>
 </template>
 
@@ -38,9 +41,6 @@ export default {
       const aboutText =  document.querySelector('#main-page-header-about')
       aboutText.classList.add('d-none')
       homeText.classList.remove('d-none')
-      //homeText.classList.add('animated', 'bounceInRight')
-      //aboutText.classList.remove('animated', 'bounceInRight')
-
  
     },
     setAbout() {
@@ -49,8 +49,6 @@ export default {
       const aboutText =  document.querySelector('#main-page-header-about')
       homeText.classList.add('d-none')
       aboutText.classList.remove('d-none')
-      //aboutText.classList.add('animated', 'bounceInRight')
-      //homeText.classList.remove('animated', 'bounceInRight')
 
     }
   }
@@ -58,6 +56,33 @@ export default {
 </script>
 
 <style>
+
+.pos {
+  left: 90%;
+  top: 13%;
+}
+
+.fb-icon {
+  border-style: solid;
+  border-radius: 50px;
+  padding: 5px 10px 5px 10px;
+  border-width: 0.1em;
+  font-size: 50px;
+  color: #0078FF;
+}
+
+.progress-bar-container--container {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: linear-gradient(to right, #38C172, #51D88A);
+}
+
+.header-text {
+  font-size: 5em;
+}
+
 
 body, html {
   margin: 0;

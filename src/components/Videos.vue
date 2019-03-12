@@ -1,4 +1,6 @@
 <template>
+<div>
+  <vue-scroll-progress-bar @complete="handleComplete" height="0.7rem" backgroundColor="gray" />
  <transition name="videos" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
   <div class="row padding-container">
     <div class="content-div col-12 col-lg-5 mt-md-0 mt-lg-0" v-bind:class="getClass(index)" v-for="(videoLink,index) in videosLinks" :key="index" v-scroll-reveal.reset>
@@ -7,8 +9,7 @@
     </div>
     </div>
    </transition>
-
-
+</div>
 </template>
 
 <script>
@@ -60,8 +61,9 @@ export default {
 }
 .content-div {
   border-radius: 25px;
-  background-color: grey;
-  border-width: 2px;
+  border-width: 5px;
+  border-style: groove;
+  border-color: black;
   padding: 1em;
   height: 15em;
   margin: 0.5em;

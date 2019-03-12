@@ -6,7 +6,9 @@ import router from './router'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VueScrollReveal from 'vue-scroll-reveal';
+import VueScrollProgressBar from 'vue-scroll-progressbar'
 
+Vue.use(VueScrollProgressBar)
 Vue.use(Animation);
 Vue.use(VeeValidate);
 Vue.use(VueScrollReveal);
