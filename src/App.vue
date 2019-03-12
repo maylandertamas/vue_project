@@ -2,7 +2,7 @@
   <div id="app">
     <div class="row">
     <div class="nav flex-column nav-pills col-lg-2 col-12" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <router-link id="v-pills-settings-tab" data-toggle="pill" class="nav-link active" to="/" role="tab" aria-controls="v-pills-settings" aria-selected="false">Home</router-link>
+      <router-link  id="v-pills-settings-tab" data-toggle="pill" class="nav-link active" to="/" role="tab" aria-controls="v-pills-settings" aria-selected="false">Home</router-link>
       <router-link id="v-pills-settings-tab" data-toggle="pill" class="nav-link" to="/about" role="tab" aria-controls="v-pills-settings" aria-selected="false">About</router-link>
     </div>
     <div class="col-lg-10 col-12">
@@ -23,8 +23,6 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-
 
 body, html {
   margin: 0;

@@ -1,8 +1,10 @@
 <template>
-  <div class="content-div">
-      {{ info }}
-<iframe width="100%" height="100%" src="https://www.youtube.com/embed/BBJa32lCaaY" frameborder="0" 
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="row">
+  {{arr}}
+  <div class="content-div col-12 col-lg-5" v-for="(videoLink,index) in videosLinks" :key="index">
+    <iframe width="100%" height="100%" :src="videoLink" frameborder="0" 
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
   </div>
 
 
@@ -10,20 +12,29 @@ allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
 
 <script>
 
+import Axios from 'axios'
 export default {
   name: 'videos',
   data () {
     return {
-      info: null
+      videosLinks: [],
+      arr: null
     }
   },
-    mounted () {
-      axios
-      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then(response => (this.info = response))
-  } 
-}
+   mounted () {
+ 
+    Axios.get('https://www.googleapis.com/youtube/v3/search?part=id&channelId=UCIiJ33El2EakaXBzvelc2bQ&type=video&key=AIzaSyBfynihkI2OuWswP76U1fhCGdlX3EzSELE')
+          .then(response => {
+             response.data.items.forEach(element => {
+              this.videosLinks.push('https://www.youtube.com/embed/'+element.id.videoId);
+             });
 
+          });
+           const data = JSON.stringify("asfafasfa")
+        window.localStorage.setItem('arr', data);
+   this.arr= window.localStorage.getItem('arr');
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -35,6 +46,8 @@ export default {
   background-color: grey;
   border-width: 2px;
   padding: 1em;
-  height: 30em;
+  height: 15em;
+  margin: 0.5em;
+  width: 100%;
 }
 </style>
