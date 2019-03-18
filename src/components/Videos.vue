@@ -1,15 +1,15 @@
 <template>
 <div>
   <vue-scroll-progress-bar height="0.7rem" backgroundColor="gray" />
-  <div class="padding-container">
-    <sequential-entrance fromLeft>
-    <div class="content-div col-12"  v-for="(videoLink,index) in videosLinks" :key="index">
+  <div class="row padding-container">
+    <sequential-entrance class="mb-4" tag="div" fromLeft>
+    <div class="content-div col-12" v-bind:class="getClass(index)"  v-for="(videoLink,index) in videosLinks" :key="index">
       <iframe width="100%" height="100%" :src="videoLink" frameborder="0"
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
       </sequential-entrance>
-  </div>
-</div>    
+  </div>   
+</div> 
 </template>
 
 <script>
@@ -74,11 +74,15 @@ export default {
 
 @media (min-width: 991.98px) { 
   .padding-container {
-    margin-top: 10% !important;
+    margin-top: 4em !important;
+
   }
 
   .top-padding-minus {
     margin-top: -10% !important;
+    margin-left: 110% !important;
+    margin-bottom: -50% !important;
+
   }
 }
 .content-div {
@@ -89,6 +93,6 @@ export default {
   padding: 1em;
   height: 15em;
   margin: 0.5em;
-  width: 100%;
+  width: 200%;
 }
 </style>
