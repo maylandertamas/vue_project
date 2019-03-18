@@ -7,7 +7,10 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VueScrollReveal from 'vue-scroll-reveal';
 import VueScrollProgressBar from 'vue-scroll-progressbar'
+import SequentialEntrance from 'vue-sequential-entrance'
+import 'vue-sequential-entrance/vue-sequential-entrance.css'
 
+Vue.use(SequentialEntrance);
 Vue.use(VueScrollProgressBar)
 Vue.use(Animation);
 Vue.use(VeeValidate);

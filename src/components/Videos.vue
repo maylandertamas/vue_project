@@ -1,21 +1,21 @@
 <template>
 <div>
   <vue-scroll-progress-bar height="0.7rem" backgroundColor="gray" />
- <transition name="videos" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-  <div class="row padding-container">
-    <div class="content-div col-12 col-lg-5 mt-md-0 mt-lg-0" v-bind:class="getClass(index)" v-for="(videoLink,index) in videosLinks" :key="index" v-scroll-reveal.reset="{delay: 240}">
+  <div class="padding-container">
+    <sequential-entrance fromLeft>
+    <div class="content-div col-12"  v-for="(videoLink,index) in videosLinks" :key="index">
       <iframe width="100%" height="100%" :src="videoLink" frameborder="0"
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-    </div>
-   </transition>
-</div>
+      </sequential-entrance>
+  </div>
+</div>    
 </template>
 
 <script>
 
 import Axios from 'axios'
-import { setTimeout } from 'timers';
+
 export default {
   name: 'videos',
   data () {
@@ -29,7 +29,6 @@ export default {
     if (localStorage.getItem('videosLinks')) {
       try {
         this.videosLinks = JSON.parse(localStorage.getItem('videosLinks'));
-        console.log(this.videosLinks);
       } catch(e) {
         localStorage.removeItem('videosLinks');
       }
@@ -41,7 +40,7 @@ export default {
           });
           const parsed = JSON.stringify(this.videosLinks);
           localStorage.setItem('videosLinks', parsed);
-      }).catch((e)=> {console.log(e)});
+      }).catch(()=> {});
     } 
 
 
