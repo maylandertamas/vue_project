@@ -37,18 +37,14 @@ export default {
   methods: {
     setHome() {
       this.actualPage = 'Home'
-      const homeText =  document.querySelector('#main-page-header-home')
       const aboutText =  document.querySelector('#main-page-header-about')
       aboutText.classList.add('d-none')
-      homeText.classList.remove('d-none')
  
     },
     setAbout() {
       this.actualPage = 'About'
       const homeText =  document.querySelector('#main-page-header-home')
-      const aboutText =  document.querySelector('#main-page-header-about')
       homeText.classList.add('d-none')
-      aboutText.classList.remove('d-none')
 
     }
   }

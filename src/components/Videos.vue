@@ -1,9 +1,9 @@
 <template>
 <div>
-  <vue-scroll-progress-bar @complete="handleComplete" height="0.7rem" backgroundColor="gray" />
+  <vue-scroll-progress-bar height="0.7rem" backgroundColor="gray" />
  <transition name="videos" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
   <div class="row padding-container">
-    <div class="content-div col-12 col-lg-5 mt-md-0 mt-lg-0" v-bind:class="getClass(index)" v-for="(videoLink,index) in videosLinks" :key="index" v-scroll-reveal.reset>
+    <div class="content-div col-12 col-lg-5 mt-md-0 mt-lg-0" v-bind:class="getClass(index)" v-for="(videoLink,index) in videosLinks" :key="index" v-scroll-reveal.reset="{delay: 240}">
       <iframe width="100%" height="100%" :src="videoLink" frameborder="0"
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
@@ -15,6 +15,7 @@
 <script>
 
 import Axios from 'axios'
+import { setTimeout } from 'timers';
 export default {
   name: 'videos',
   data () {
@@ -23,7 +24,29 @@ export default {
     }
   },
    mounted () {
-      Axios.get('http://localhost:3000/videos').then((response) => {
+
+      /** Cached */
+    if (localStorage.getItem('videosLinks')) {
+      try {
+        this.videosLinks = JSON.parse(localStorage.getItem('videosLinks'));
+        console.log(this.videosLinks);
+      } catch(e) {
+        localStorage.removeItem('videosLinks');
+      }
+    } else {
+      Axios.get('https://www.googleapis.com/youtube/v3/search?part=id&channelId=UCIiJ33El2EakaXBzvelc2bQ&type=video&key=AIzaSyBfynihkI2OuWswP76U1fhCGdlX3EzSELE')
+        .then(response => {
+            response.data.items.forEach(element => {
+            this.videosLinks.push('https://www.youtube.com/embed/'+element.id.videoId);
+          });
+          const parsed = JSON.stringify(this.videosLinks);
+          localStorage.setItem('videosLinks', parsed);
+      }).catch((e)=> {console.log(e)});
+    } 
+
+
+     /** With backend */
+    /*Axios.get('http://localhost:3000/videos').then((response) => {
         this.videosLinks = response.data.links;
         if (this.videosLinks.length <= 0) {
           Axios.get('https://www.googleapis.com/youtube/v3/search?part=id&channelId=UCIiJ33El2EakaXBzvelc2bQ&type=video&key=AIzaSyBfynihkI2OuWswP76U1fhCGdlX3EzSELE')
@@ -36,7 +59,7 @@ export default {
           });
         }
       })
-      .catch(() => {})
+      .catch(() => {})*/
   },
   methods: {
     getClass(property) {
