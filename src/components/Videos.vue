@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     getClass(property) {
-      return property % 2 === 0 ? 'padding-even' : 'padding-odd'
+      return property % 2 === 0 ? '' : 'padding-odd'
     },
   }
 }
@@ -139,6 +139,30 @@ export default {
 }
 
 }
+@media (min-width: 1500px) { 
+  .padding-container {
+    margin-top: 1em !important;
+    margin-left: 5em;
 
+  }
+
+  .padding-odd {
+    margin-top: -20% !important;
+    margin-left: 47% !important;
+    margin-bottom: -2% !important;
+  }
+
+  .content-div {
+  border-radius: 25px;
+  border-width: 5px;
+  border-style: groove;
+  border-color: black;
+  padding: 1em;
+  height: 20em;
+  margin: 0.5em;
+  width: 45%;
+}
+
+}
 
 </style>
