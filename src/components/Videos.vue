@@ -15,6 +15,7 @@
 <script>
 
 import Axios from 'axios'
+import moment from 'moment'
 
 export default {
   name: 'videos',
@@ -24,22 +25,29 @@ export default {
     }
   },
    mounted () {
+      
+    var now = moment().format('YYYY-MM-DD');
 
       /** Cached */
-    if (localStorage.getItem('videosLinks')) {
+    if (localStorage.getItem('videosLinksObject')) {
       try {
-        this.videosLinks = JSON.parse(localStorage.getItem('videosLinks'));
+        var parsed = JSON.parse(localStorage.getItem('videosLinksObject'));
+        this.videosLinks = parsed.videosLinks;
+        if (!parsed.timeStamp || now.diff(parsed.timeStamp, 'days') >= 1 ) {
+          throw "Cache expired";
+        }
       } catch(e) {
-        localStorage.removeItem('videosLinks');
+        localStorage.removeItem('videosLinksObject');
       }
     } else {
-      Axios.get('https://www.googleapis.com/youtube/v3/search?part=id&channelId=UCIiJ33El2EakaXBzvelc2bQ&type=video&key=AIzaSyBfynihkI2OuWswP76U1fhCGdlX3EzSELE')
+      Axios.get('https://www.googleapis.com/youtube/v3/search?part=id&channelId=UCEXGDNclvmg6RW0vipJYsTQ&type=video&key=AIzaSyBfynihkI2OuWswP76U1fhCGdlX3EzSELE')
         .then(response => {
             response.data.items.forEach(element => {
             this.videosLinks.push('https://www.youtube.com/embed/'+element.id.videoId);
           });
-          const parsed = JSON.stringify(this.videosLinks);
-          localStorage.setItem('videosLinks', parsed);
+          var videosLinksObject = { videosLinks: this.videosLinks, timeStamp: now }
+          const parsed = JSON.stringify(videosLinksObject);
+          localStorage.setItem('videosLinksObject', parsed);
       }).catch(()=> {});
     } 
 
@@ -63,7 +71,7 @@ export default {
   methods: {
     getClass(property) {
       return property % 2 === 0 ? 'top-padding-minus' : ''
-    }
+    },
   }
 }
 </script>

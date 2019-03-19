@@ -9,7 +9,9 @@ import VueScrollReveal from 'vue-scroll-reveal';
 import VueScrollProgressBar from 'vue-scroll-progressbar'
 import SequentialEntrance from 'vue-sequential-entrance'
 import 'vue-sequential-entrance/vue-sequential-entrance.css'
+import Moment from 'moment';
 
+Vue.use(Moment);
 Vue.use(SequentialEntrance);
 Vue.use(VueScrollProgressBar)
 Vue.use(Animation);
