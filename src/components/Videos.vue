@@ -26,7 +26,7 @@ export default {
   },
    mounted () {
       
-    var now = moment().format('YYYY-MM-DD');
+    var now = moment();
 
       /** Cached */
     if (localStorage.getItem('videosLinksObject')) {
@@ -37,6 +37,8 @@ export default {
           throw "Cache expired";
         }
       } catch(e) {
+        // eslint-disable-next-line
+        console.log(e)
         localStorage.removeItem('videosLinksObject');
       }
     } else {
