@@ -9,13 +9,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'main',
-      component: Videos
+      name: 'videos',
+      component: Videos,
+      alias: '/videos'
     },
     {
       path: '/about',
       name: 'about',
-      component: About
+      component: About,
     }
   ]
 })

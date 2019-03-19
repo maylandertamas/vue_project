@@ -2,12 +2,14 @@
 <div>
   <vue-scroll-progress-bar height="0.7rem" backgroundColor="gray" />
   <div class="row padding-container">
-    <sequential-entrance class="mb-4" tag="div" fromLeft>
+    <div class="col-12">
+    <sequence>
     <div class="content-div col-12" v-bind:class="getClass(index)"  v-for="(videoLink,index) in videosLinks" :key="index">
       <iframe width="100%" height="100%" :src="videoLink" frameborder="0"
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-      </sequential-entrance>
+    </sequence>
+        </div>
   </div>   
 </div> 
 </template>
@@ -16,9 +18,13 @@
 
 import Axios from 'axios'
 import moment from 'moment'
+import Sequence from './Sequence.vue'
 
 export default {
   name: 'videos',
+  components: {
+  Sequence
+  },
   data () {
     return {
       videosLinks: [],
@@ -72,7 +78,7 @@ export default {
   },
   methods: {
     getClass(property) {
-      return property % 2 === 0 ? 'top-padding-minus' : ''
+      return property % 2 === 0 ? 'padding-even' : 'padding-odd'
     },
   }
 }
@@ -84,25 +90,55 @@ export default {
 
 @media (min-width: 991.98px) { 
   .padding-container {
-    margin-top: 4em !important;
+    margin-top: 1em !important;
+    margin-left: 5em;
 
   }
 
-  .top-padding-minus {
-    margin-top: -10% !important;
-    margin-left: 110% !important;
-    margin-bottom: -50% !important;
-
+  .padding-odd {
+    margin-top: -20% !important;
+    margin-left: 47% !important;
+    margin-bottom: -15% !important;
   }
-}
-.content-div {
+
+  .content-div {
   border-radius: 25px;
   border-width: 5px;
   border-style: groove;
   border-color: black;
   padding: 1em;
-  height: 15em;
+  height: 20em;
   margin: 0.5em;
-  width: 200%;
+  width: 45%;
 }
+
+}
+
+@media (max-width: 991.98px) { 
+  .padding-container {
+    margin-top: 0em;
+    margin-left: 0em;
+
+  }
+
+  .padding-odd {
+    margin-top: 0%;
+    margin-left: 0%;
+    margin-bottom: 0%;
+  }
+
+  .content-div {
+  border-radius: 25px;
+  border-width: 5px;
+  border-style: groove;
+  border-color: black;
+  padding: 1em;
+  height: 25em;
+  margin: 0.5em;
+  width: 100%;
+}
+
+}
+
+
 </style>
