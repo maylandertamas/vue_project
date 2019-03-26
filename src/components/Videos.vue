@@ -43,8 +43,6 @@ export default {
           throw "Cache expired";
         }
       } catch(e) {
-        // eslint-disable-next-line
-        console.log(e)
         localStorage.removeItem('videosLinksObject');
       }
     } else {
@@ -164,5 +162,4 @@ export default {
 }
 
 }
-
 </style>

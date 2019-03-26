@@ -11,7 +11,7 @@ export default new Router({
       path: '/',
       name: 'videos',
       component: Videos,
-      alias: '/videos'
+      alias: '/videos',
     },
     {
       path: '/about',

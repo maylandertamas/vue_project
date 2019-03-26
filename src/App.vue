@@ -4,30 +4,27 @@
     <div class="row">
             <div class="col-2 text-left">
               <router-link v-bind:to="actualPage === 'videos' || actualPage === '/' ? 'about' : 'videos'"  
-                            v-on:click.native="setNextPage()"><i class="fas fa-arrow-left icon-style">
+                            v-on:click.native="setLeftPage()"><i class="fas fa-arrow-left icon-style">
                 </i>
                 </router-link>
             </div>
     <div class="col-8">
-         <transition name="alert-in" enter-active-class="animated rollIn">
-        <div v-if="actualPage === 'videos'" id="main-page-header-home" class="text-center"><h1 class="header-text">Videos</h1></div>
-          </transition>
-          <transition name="alert-in" enter-active-class="animated rollIn">
-        <div v-if="actualPage === 'about'" id="main-page-header-about" class="text-center"><h1 class="header-text">About</h1></div>
-          </transition>
+  
+        <div id="main-page-header-home"  class="text-center animated position-absolute col-12"  v-bind:class="{ 'd-none': isAboutPageOnStartUp}"><h1  class="header-text ">Videos</h1></div>
+        <div id="main-page-header-about" class="text-center animated position-absolute col-12" v-bind:class="{ 'd-none': isHomePageOnStartUp}"><h1   class="header-text ">About</h1></div>
+ 
+        
+        <!--<div id="main-page-header-about" class="text-center animated"><h1 class="header-text">About</h1></div>-->
+   
     </div>
           <div class="col-2 text-right">
             <router-link v-bind:to="actualPage === 'videos' || actualPage === '/' ? 'about' : 'videos'"
-                         v-on:click.native="setNextPage()"><i class="fas fa-arrow-right icon-style">
+                         v-on:click.native="setRightPage()"><i class="fas fa-arrow-right icon-style">
                 </i>
                 </router-link>
           </div>
     </div>
     <div class="row">
-    <!--<div class="nav flex-column nav-pills col-lg-2 col-12" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <router-link  data-toggle="pill" class="nav-link active" to="/" role="tab" aria-controls="v-pills-settings" aria-selected="false" v-on:click.native="setHome()">Home</router-link>
-      <router-link data-toggle="pill" class="nav-link" to="/about" role="tab" aria-controls="v-pills-settings" aria-selected="false" v-on:click.native="setAbout()">About</router-link>
-    </div>-->
     <div class="col-12">
       <router-view />
     </div>
@@ -38,8 +35,6 @@
 
 <script>
 
-
-
 export default {
   name: 'app',
   components: {
@@ -48,22 +43,56 @@ export default {
   data () {
     return {
       actualPage: '',
+      isHomePageOnStartUp: false,
+      isAboutPageOnStartUp: false,
     }
   },
   mounted() {
    this.actualPage = this.$route.name;
+   this.isHomePageOnStartUp = this.$route.name === 'videos' || this.$route.name === '/' ? true : false;
+   this.isAboutPageOnStartUp = !this.isHomePageOnStartUp;
   },
   methods: {
-    setNextPage() {
+    setLeftPage() {
+      const homeText =  document.querySelector('#main-page-header-home')
+      const aboutText =  document.querySelector('#main-page-header-about')
+      homeText.classList.remove('d-none')
+      aboutText.classList.remove('d-none')
       if (this.actualPage === 'videos') {
         this.actualPage = 'about'
-        const homeText =  document.querySelector('#main-page-header-home')
-        homeText.classList.add('d-none')
-
+        homeText.classList.remove('rollIn')
+        homeText.classList.remove('rollInRight')
+        aboutText.classList.remove('rollOut')
+        aboutText.classList.remove('rollOutLeft')
+        homeText.classList.add('rollOutLeft')
+        aboutText.classList.add('rollInRight')
       } else {
         this.actualPage = 'videos'
-        const aboutText =  document.querySelector('#main-page-header-about')
-        aboutText.classList.add('d-none')
+        homeText.classList.remove('rollOut')
+        homeText.classList.remove('rollOutLeft')
+        aboutText.classList.remove('rollIn')
+        aboutText.classList.remove('rollInRight')
+        aboutText.classList.add('rollOutLeft')
+        homeText.classList.add('rollInRight')
+      }
+    },
+    setRightPage() {
+      const homeText =  document.querySelector('#main-page-header-home')
+      const aboutText =  document.querySelector('#main-page-header-about')
+      homeText.classList.remove('d-none')
+      aboutText.classList.remove('d-none')
+      if (this.actualPage === 'videos') {
+        this.actualPage = 'about'
+        homeText.classList.remove('rollIn')
+        aboutText.classList.remove('rollOut')
+        homeText.classList.add('rollOut')
+        aboutText.classList.add('rollIn')
+      } else {
+        this.actualPage = 'videos'
+        homeText.classList.remove('rollOut')
+        aboutText.classList.remove('rollIn')
+        aboutText.classList.add('rollOut')
+        homeText.classList.add('rollIn')
       }
     }
 
@@ -73,10 +102,6 @@ export default {
 
 <style>
 
-
-
-
-
 .pos-messenger {
   left: 90%;
   top: 50%;
@@ -84,11 +109,8 @@ export default {
 
 @media (min-width: 991.98px) { 
   .icon-style {
-    border-style: solid;
-    border-radius: 50px;
     padding: 5px 10px 5px 10px;
-    border-width: 0.1em;
-    font-size: 50px;
+    font-size: 5em;
     color: #0078FF;
   }
   .header-text {
@@ -98,10 +120,7 @@ export default {
 
 @media (max-width: 991.98px) { 
   .icon-style {
-    border-style: solid;
-    border-radius: 25px;
     padding: 0px 5px 0px 5px;
-    border-width: 0.1em;
     font-size: 3em;
     color: #0078FF;
   }
@@ -139,5 +158,77 @@ body {
 }
 
 
+
+/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
+
+@-webkit-keyframes rollOutLeft {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+        opacity: 0;
+    -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+
+  }
+}
+
+@keyframes rollOutLeft {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+        opacity: 0;
+    -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+
+  }
+}
+
+.rollOutLeft {
+  -webkit-animation-name: rollOutLeft;
+  animation-name: rollOutLeft;
+}
+
+
+
+/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
+
+@-webkit-keyframes rollInRight {
+  from {
+     opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
+    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
+  }
+
+  to {
+       opacity: 1;
+
+  }
+}
+
+@keyframes rollInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
+    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
+  }
+
+  to {
+        opacity: 1;
+
+  }
+}
+
+.rollInRight {
+  -webkit-animation-name: rollInRight;
+  animation-name: rollInRight;
+}
 
 </style>

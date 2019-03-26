@@ -10,7 +10,7 @@ export default {
   {
     let delay = props.delay || 250;
     let tag = props.tag || "div";
-    let animation = props.animation || "entranceFromRight";
+    let animation = props.animation || "animated fadeInUp";
 
     if(props.fromTop != undefined) animation = 'entranceFromTop'
     if(props.fromRight != undefined) animation = 'entranceFromRight'
@@ -100,4 +100,11 @@ export default {
     transform: translate3d(0, 0, 0);
   }
 }
+
+
+
+
+/****/
+
+
 </style>
