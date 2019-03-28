@@ -2,10 +2,11 @@
   <div id="app">
        <!--<div class="text-right position-fixed pos-messenger" ><i class="fab fa-facebook-messenger fb-icon"></i></div>-->
     <div class="row">
+   
             <div class="col-2 text-left">
               <router-link v-bind:to="actualPage === 'videos' || actualPage === '/' ? 'about' : 'videos'"  
-                            v-on:click.native="setLeftPage()"><i class="fas fa-arrow-left icon-style">
-                </i>
+                            v-on:click.native="setLeftPage()"><i class="fas fa-chevron-left icon-style"></i>
+      
                 </router-link>
             </div>
     <div class="col-8">
@@ -19,7 +20,7 @@
     </div>
           <div class="col-2 text-right">
             <router-link v-bind:to="actualPage === 'videos' || actualPage === '/' ? 'about' : 'videos'"
-                         v-on:click.native="setRightPage()"><i class="fas fa-arrow-right icon-style">
+                         v-on:click.native="setRightPage()"><i class="fas fa-chevron-right icon-style">
                 </i>
                 </router-link>
           </div>
@@ -111,8 +112,18 @@ export default {
   .icon-style {
     padding: 5px 10px 5px 10px;
     font-size: 5em;
-    color: #0078FF;
+    color: black;
+    transition: 1s ease, color 1s;
   }
+
+  .icon-style:hover {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+    transition: 1s ease;
+        color: red;
+  }
+  
   .header-text {
   font-size: 5em;
 }
@@ -122,8 +133,18 @@ export default {
   .icon-style {
     padding: 0px 5px 0px 5px;
     font-size: 3em;
-    color: #0078FF;
+    color: black;
+    transition: 1s ease, color 1s;
   }
+
+    .icon-style:hover {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+    transition: 1s ease;
+    color: red;
+  }
+
   .header-text {
   font-size: 3em;
 }

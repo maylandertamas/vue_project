@@ -25,7 +25,7 @@ export default {
           animationDelay: index * delay + "ms"
         };
         child.data.staticClass += " " + animation;
-        child.data.staticClass += " " + 'col-12';
+        child.data.staticClass += tag === "div" ? " " + 'col-12' : '';
       });
     }
     return createElement(tag,children);
